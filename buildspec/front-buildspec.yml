@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin AKIA6BUADVUFNDA4NJ6C.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -f ../front/Dockerfile -t myapp:front .
+      - docker tag myapp:front AKIA6BUADVUFNDA4NJ6C.dkr.ecr.us-east-1.amazonaws.com/myapp:front
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push AKIA6BUADVUFNDA4NJ6C.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/myapp:front
