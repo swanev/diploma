@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<title>Sample Page</title>
+
+<script>
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:5000",
+  "method": "GET"
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+
+  var content = response[0].country_code;
+  $("#country").append(content);
+
+  var currentWeather = response[0].confirmed;
+  $("#confirmed").append(currentWeather);
+
+});
+</script>
+</head>
+<body>
+<h1>Sample Page</h1>
+
+<div id="country">country: </div>
+<div id="confirmed">confirmed: </div>
+
+</body>
+</html>
