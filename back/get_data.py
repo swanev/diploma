@@ -16,9 +16,9 @@ query_select= """SELECT date_value,country_code,confirmed,deaths,stringency_actu
 # Initialising database connection
 try:
     db = MySQLdb.connect(host="192.168.1.149",    # host, usually localhost
-                     user="root",         # username
-                     passwd="swan",  # password
-                     db="school")        # of the data base
+                     user="username",         # username
+                     passwd="pwd",  # password
+                     db="dbname")        # of the data base
 except ValueError:
     raise ValueError("No datatbase connect")
 
@@ -51,6 +51,3 @@ def select_data():
         j_data.append(dict(zip(row_headers, result))) 
     cur.close()
     return j_data
-
-#get_data(url, start_date, end_date)
-#select_data()
