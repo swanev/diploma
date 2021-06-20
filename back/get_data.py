@@ -26,9 +26,9 @@ query_update = """INSERT IGNORE INTO covid (date_value,country_code,confirmed,de
 # Initialising database connection
 try:
     db = MySQLdb.connect(host="192.168.1.149",    # host, usually localhost
-                     user="root",         # username
-                     passwd="swan",  # password
-                     db="school")        # of the data base
+                     user="user",         # username
+                     passwd="password",  # password
+                     db="dbname")        # of the data base
 except ValueError:
     raise ValueError("No datatbase connect")
 
