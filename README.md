@@ -31,3 +31,7 @@ github_repo_name="YOUR GITHUB REPO NAME"
 github_repo_owner="YOUR GITHUB REPO OWNER"
 
 cluster-name="YOUR EKS CLUSTER NAME"
+
+### In state.tf 
+
+Change bucket for terraform state to yours
