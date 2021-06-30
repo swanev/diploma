@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+
+  install:
+    commands:
+      - echo Installing app dependencies...
+      - curl -o kubectl curl -o kubectl $KUBECTL_URL 
+      - chmod +x ./kubectl
+      - mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+      - export KUBECONFIG=$HOME/.kube/config        
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+  build:
+    commands:
+      - echo Entered the build phase...
+      - echo Change directory to secondary source
+      - echo List directory
+      - ls -la
+      - ls -al buildspec/
+  post_build:
+    commands:
+      - echo "Update Kube Config"      
+      - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $EKS_CLUSTER_NAME
+      # Apply changes to our Application using kubectl
+      - echo "Apply changes to kube manifests"
+      - aws sts get-caller-identity
+      - kubectl config view --minify            
+      - kubectl apply -f buildspec/front_app.yml
+      - echo "Completed applying changes to Kubernetes Objects"
