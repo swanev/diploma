@@ -61,7 +61,14 @@ resource "aws_iam_role" "tf-codebuild-role" {
       },
       "Effect": "Allow",
       "Sid": ""
-    }
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "eks.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }    
   ]
 }
 EOF

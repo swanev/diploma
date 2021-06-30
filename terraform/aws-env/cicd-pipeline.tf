@@ -132,7 +132,12 @@ resource "aws_codebuild_project" "back-deploy" {
     environment_variable {
         name = "KUBECTL_URL" 
         value = "https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl"
-     }           
+     } 
+
+    environment_variable {
+        name = "AWS_AUTHENTICATOR_URL" 
+        value = "https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/aws-iam-authenticator"
+     } 
 
  }
   source {
@@ -189,7 +194,12 @@ resource "aws_codebuild_project" "front-deploy" {
     environment_variable {
         name = "KUBECTL_URL" 
         value = "https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl"
-     }     
+     }
+
+    environment_variable {
+        name = "AWS_AUTHENTICATOR_URL" 
+        value = "https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/aws-iam-authenticator"
+     }           
 
  }
   source {
@@ -218,7 +228,7 @@ resource "aws_codepipeline" "cicd_pipeline" {
             version = "1"
             output_artifacts = ["Docker-container"]
             configuration = {
-                FullRepositoryId = "swanev/diploma"
+                FullRepositoryId = var.github_repo_name
                 BranchName   = "master"
                 ConnectionArn = var.codestar_connector_credentials
 #                OutputArtifactFormat = "CODE_ZIP"

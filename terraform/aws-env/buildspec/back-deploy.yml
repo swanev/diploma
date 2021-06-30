@@ -4,10 +4,12 @@ phases:
 
   install:
     commands:
-      - echo Installing app dependencies...
+      - echo Prepare EKS connection ...      
+      - curl -sS -o aws-iam-authenticator $AWS_AUTHENTICATOR_URL
       - curl -o kubectl curl -o kubectl $KUBECTL_URL 
-      - chmod +x ./kubectl
+      - chmod +x ./kubectl ./aws-iam-authenticator
       - mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+      - export PATH=$PWD/:$PATH            
       - export KUBECONFIG=$HOME/.kube/config        
   pre_build:
     commands:
@@ -22,11 +24,10 @@ phases:
       - ls -al buildspec/
   post_build:
     commands:
-      - echo "Update Kube Config"      
-      - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $EKS_CLUSTER_NAME
       # Apply changes to our Application using kubectl
       - echo "Apply changes to kube manifests"
       - aws sts get-caller-identity
+      - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $EKS_CLUSTER_NAME  
       - kubectl config view --minify            
       - kubectl apply -f buildspec/front_app.yml
       - echo "Completed applying changes to Kubernetes Objects"
