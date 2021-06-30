@@ -1,4 +1,4 @@
-# diploma
+# diploma TERRAFORM 1.0
 
 ### tfvars
 
