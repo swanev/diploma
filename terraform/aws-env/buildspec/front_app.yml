@@ -16,7 +16,7 @@ spec:
     spec:
       serviceAccountName: front
       containers:
-      - image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - image: $AWS_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
         name: front
         ports:
         - containerPort: 5000

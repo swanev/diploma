@@ -178,8 +178,8 @@ resource "aws_codebuild_project" "front-deploy" {
         value = var.vpc_region
     }  
     environment_variable {
-        name = "AWS_ACCOUNT_ID" 
-        value = var.aws_account_id
+        name = "AWS_ACCESS_KEY_ID" 
+        value = var.aws_access_key_id
      }  
 
     environment_variable {
@@ -188,10 +188,19 @@ resource "aws_codebuild_project" "front-deploy" {
      }  
 
     environment_variable {
+        name = "AWS_ID" 
+        value = var.aws_account_id
+     }
+
+    environment_variable {
+        name = "AWS_SECRET_ACCESS_KEY" 
+        value = var.aws_secret_access_key
+     }   
+
+    environment_variable {
         name = "IMAGE_TAG" 
         value = "back"
      }
-
     environment_variable {
         name = "EKS_KUBECTL_ROLE_ARN" 
         value = "arn:aws:iam::$AWS_ACCOUNT_ID:role/terraform-eks-diploma-cluster"
@@ -200,17 +209,17 @@ resource "aws_codebuild_project" "front-deploy" {
     environment_variable {
         name = "EKS_CLUSTER_NAME" 
         value = var.cluster-name
-     }      
+     }     
 
     environment_variable {
         name = "KUBECTL_URL" 
         value = "https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl"
-     }
+     } 
 
     environment_variable {
         name = "AWS_AUTHENTICATOR_URL" 
         value = "https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/aws-iam-authenticator"
-     }           
+     }            
 
  }
   source {

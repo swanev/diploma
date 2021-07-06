@@ -23,9 +23,8 @@ spec:
       labels:
         app: back
     spec:
-      serviceAccountName: back
       containers:
-      - image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - image: $AWS_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
         name: back
         ports:
         - containerPort: 5000
