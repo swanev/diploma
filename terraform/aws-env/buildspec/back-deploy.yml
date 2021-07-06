@@ -10,11 +10,11 @@ phases:
       - chmod +x ./kubectl ./aws-iam-authenticator
       - mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
       - export PATH=$PWD/:$PATH            
-      - export KUBECONFIG=$HOME/.kube/config        
+      - export KUBECONFIG=$HOME/.kube/config
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
       - echo Entered the build phase...
@@ -25,9 +25,14 @@ phases:
   post_build:
     commands:
       # Apply changes to our Application using kubectl
+      - aws configure list 
+      - echo $AWS_ACCESS_KEY_ID
+      - echo $AWS_SECRET_ACCESS_KEY
+      - echo ~/.aws/config
       - echo "Apply changes to kube manifests"
       - aws sts get-caller-identity
-      - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $EKS_CLUSTER_NAME  
+      - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $EKS_CLUSTER_NAME
+      - kubectl create ns diploma
       - kubectl config view --minify            
-      - kubectl apply -f buildspec/front_app.yml
+      - kubectl apply -f buildspec/back_app.yml
       - echo "Completed applying changes to Kubernetes Objects"

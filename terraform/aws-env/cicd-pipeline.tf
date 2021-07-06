@@ -20,6 +20,7 @@ resource "aws_codebuild_project" "front-docker-build" {
         name = "AWS_DEFAULT_REGION" 
         value = var.vpc_region
     }  
+
     environment_variable {
         name = "AWS_ACCOUNT_ID" 
         value = var.aws_account_id
@@ -106,14 +107,24 @@ resource "aws_codebuild_project" "back-deploy" {
         value = var.vpc_region
     }  
     environment_variable {
-        name = "AWS_ACCOUNT_ID" 
-        value = var.aws_account_id
+        name = "AWS_ACCESS_KEY_ID" 
+        value = var.aws_access_key_id
      }  
 
     environment_variable {
         name = "IMAGE_REPO_NAME" 
         value = var.ecr_name
      }  
+
+    environment_variable {
+        name = "AWS_ID" 
+        value = var.aws_account_id
+     }
+
+    environment_variable {
+        name = "AWS_SECRET_ACCESS_KEY" 
+        value = var.aws_secret_access_key
+     }   
 
     environment_variable {
         name = "IMAGE_TAG" 
