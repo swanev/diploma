@@ -23,6 +23,14 @@ spec:
 
 ---
 apiVersion: v1
+kind: Namespace
+metadata: 
+  name: diploma
+  labels: 
+    name: diploma
+
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: back
