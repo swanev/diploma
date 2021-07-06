@@ -63,7 +63,7 @@ resource "aws_security_group_rule" "diploma-cluster-ingress-workstation-https" {
 
 resource "aws_eks_cluster" "diploma-eks-cluster" {
   name     = var.cluster-name
-  role_arn = aws_iam_role.tf-codebuild-role.arn
+  role_arn = aws_iam_role.diploma-cluster.arn
 
   vpc_config {
     security_group_ids = [aws_security_group.diploma-cluster.id]

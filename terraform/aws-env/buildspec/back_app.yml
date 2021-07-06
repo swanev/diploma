@@ -1,3 +1,12 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata: 
+  name: diploma
+  labels: 
+    name: diploma
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,14 +29,6 @@ spec:
         name: back
         ports:
         - containerPort: 5000
-
----
-apiVersion: v1
-kind: Namespace
-metadata: 
-  name: diploma
-  labels: 
-    name: diploma
 
 ---
 apiVersion: v1
