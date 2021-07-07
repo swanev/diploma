@@ -32,6 +32,7 @@ phases:
       - echo "Apply changes to kube manifests"
       - aws sts get-caller-identity
       - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $EKS_CLUSTER_NAME
-      - kubectl config view --minify            
-      - kubectl apply -f buildspec/back_app.yml
+      - kubectl config view --minify
+      - cat buildspec/back_app.yml| cat << EOF > back_app.yml            
+      - kubectl apply -f back_app.yml
       - echo "Completed applying changes to Kubernetes Objects"
