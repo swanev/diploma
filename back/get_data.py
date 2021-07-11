@@ -3,12 +3,45 @@ import argparse
 import datetime
 import re
 import json
+import os
 import requests 
 import MySQLdb #need sudo apt-get install python-mysqldb (for debian based distros), yum install MySQL-python (for rpm-based), or dnf install python-mysql (for modern fedora distro) in command line to download
 
 start_date = '2021-01-1' 
 end_date = '2021-06-01'
 url = 'https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/'
+
+try:  
+   os.environ["DB_HOST"]
+except KeyError: 
+   print ("Please set the environment variable DB_HOST")
+   sys.exit(1)
+
+try:  
+   os.environ["DB_USER"]
+except KeyError: 
+   print ("Please set the environment variable DB_USER")
+   sys.exit(1)
+
+try:  
+   os.environ["DB_PASS"]
+except KeyError: 
+   print ("Please set the environment variable DB_PASS")
+   sys.exit(1)
+
+try:  
+   os.environ["DB_NAME"]
+except KeyError: 
+   print ("Please set the environment variable DB_NAME")
+   sys.exit(1)         
+
+db_host = os.environ.get('DB_HOST')
+
+print("DBHOST IS ", os.environ.get('DB_HOST'))
+
+db_user = os.environ.get('DB_USER')
+db_pass = os.environ.get('DB_PASS')
+db_name = os.environ.get('DB_NAME')
 
 query_insert = """INSERT INTO covid (date_value,country_code,confirmed,deaths,stringency_actual,stringency) VALUES (%s,%s,%s,%s,%s,%s)"""
 query_select = """SELECT date_value,country_code,confirmed,deaths,stringency_actual,stringency FROM covid"""
@@ -25,10 +58,10 @@ query_update = """INSERT IGNORE INTO covid (date_value,country_code,confirmed,de
 
 # Initialising database connection
 try:
-    db = MySQLdb.connect(host="192.168.1.149",    # host, usually localhost
-                     user="user",         # username
-                     passwd="password",  # password
-                     db="dbname")        # of the data base
+    db = MySQLdb.connect(host = db_host,    # host, usually localhost
+                     user = db_user,         # username
+                     passwd = db_pass,  # password
+                     db = db_name)        # of the data base
 except ValueError:
     raise ValueError("No datatbase connect")
 
