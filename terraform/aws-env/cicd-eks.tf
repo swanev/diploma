@@ -94,7 +94,18 @@ resource "aws_iam_role" "diploma-node" {
       "Principal": {
         "Service": "ec2.amazonaws.com"
       },
-      "Action": "sts:AssumeRole"
+      "Action": [
+        "sts:AssumeRole",
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetRepositoryPolicy",
+        "ecr:ListImages",
+        "ecr:DescribeImages",
+        "ecr:BatchGetImage",
+        "ecr:ListTagsForResource",
+        "ecr:DescribeImageScanFindings"
+        ]
     }
   ]
 }
