@@ -33,6 +33,14 @@ phases:
       - aws sts get-caller-identity
       - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $EKS_CLUSTER_NAME
       - kubectl config view --minify
-      - cat buildspec/front_app.yml| cat << EOF > front_app.yml                  
-      - kubectl apply -f buildspec/back_app.yml
+      - sed "s/AWS_ID/$AWS_ID/g" buildspec/front_app.yml > front_app.yml
+      - sed "s/AWS_DEFAULT_REGION/$AWS_DEFAULT_REGION/g" buildspec/front_app.yml > front_app.yml
+      - sed "s/IMAGE_REPO_NAME/$IMAGE_REPO_NAME/g" buildspec/front_app.yml > front_app.yml
+      - sed "s/IMAGE_TAG/$IMAGE_TAG/g" buildspec/front_app.yml > front_app.yml   
+      - cat buildspec/front_app.yml
+      - ls -al 
+      - echo "replace image"
+      - cat front_app.yml
+      - ls -al
+      - kubectl apply -f front_app.yml
       - echo "Completed applying changes to Kubernetes Objects"
