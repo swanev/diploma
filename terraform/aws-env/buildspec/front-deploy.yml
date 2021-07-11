@@ -20,8 +20,6 @@ phases:
       - echo Entered the build phase...
       - echo Change directory to secondary source
       - echo List directory
-      - ls -la
-      - ls -al buildspec/
   post_build:
     commands:
       # Apply changes to our Application using kubectl
@@ -33,17 +31,20 @@ phases:
       - aws sts get-caller-identity
       - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $EKS_CLUSTER_NAME
       - kubectl config view --minify
+      - echo "================ testst begin ============================"
+      - sed "s/AWS_ID/$AWS_ID/g" buildspec/front_app.yml
       - sed "s/AWS_ID/$AWS_ID/g" buildspec/front_app.yml > front_app.yml
       - echo "AWS_ID us " $AWS_ID
-      - sed "s/AWS_DEFAULT_REGION/$AWS_DEFAULT_REGION/g" front_app.yml > front_app.yml
+      - sed "s/AWS_DEFAULT_REGION/$AWS_DEFAULT_REGION/g" front_app.yml > front_app1.yml
       - echo "AWS_DEFAULT_REGION us " $AWS_DEFAULT_REGION
-      - sed "s/IMAGE_REPO_NAME/$IMAGE_REPO_NAME/g" front_app.yml > front_app.yml
+      - sed "s/IMAGE_REPO_NAME/$IMAGE_REPO_NAME/g" front_app1.yml > front_app2.yml
       - echo "IMAGE_REPO_NAME us " $IMAGE_REPO_NAME
-      - sed "s/IMAGE_TAG/$IMAGE_TAG/g" front_app.yml > front_app.yml   
+      - sed "s/IMAGE_TAG/$IMAGE_TAG/g" front_app2.yml > front_app.yml
       - echo "IMAGE_TAG us " $IMAGE_TAG
-      - ls -al 
+      - ls -al buildspec
       - echo "replace image"
       - cat front_app.yml
+      - echo "================ testst end ============================"
       - ls -al
       - kubectl apply -f front_app.yml
       - echo "Completed applying changes to Kubernetes Objects"
