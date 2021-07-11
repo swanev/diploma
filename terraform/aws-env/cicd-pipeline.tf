@@ -77,7 +77,27 @@ resource "aws_codebuild_project" "back-docker-build" {
     environment_variable {
         name = "IMAGE_TAG" 
         value = "back"
+     }
+
+    environment_variable {
+        name = "DB_HOST" 
+        value = "terraform-20210711054305336100000001.ckqo2j2fzlrz.us-east-2.rds.amazonaws.com"
+     }
+
+    environment_variable {
+        name = "DB_USER" 
+        value = "root"
+     }
+
+    environment_variable {
+        name = "DB_PASS" 
+        value = "temp12345"
      }  
+
+    environment_variable {
+        name = "DB_NAME" 
+        value = "diploma_db"
+     }                 
 
  }
   source {
