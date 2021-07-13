@@ -120,7 +120,12 @@ def select_data():
     print("Opening database") 
     cur = db.cursor()
     print("Selecting data from database")
-    cur.execute(query_select)
+    try:
+       cur.execute(query_select)
+    except ValueError:
+        print("Something going wrong. Select didn't working. I'll check if table exist and if no I'll fix it")
+        create_table(url, start_date, end_date)
+        raise ValueError("Cannot get data from DB")      
     row_headers=[h[0] for h in cur.description]
     results = cur.fetchall()
     j_data=[]

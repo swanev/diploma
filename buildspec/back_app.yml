@@ -57,7 +57,7 @@ spec:
         readinessProbe:
           failureThreshold: 3
           httpGet:
-            path: /minio/health/ready
+            path: /
             port: 5000
             scheme: HTTP
           initialDelaySeconds: 60
