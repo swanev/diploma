@@ -13,16 +13,13 @@ variable "storage" {
 }
 
 variable "engine" {
-  default     = "postgres"
+  default     = "mysql"
   description = "Engine type, example values mysql, postgres"
 }
 
 variable "engine_version" {
   description = "Engine version"
-
-  default = {
-    mysql    = "8.0.20"
-  }
+  default = "8.0.20"
 }
 
 variable "instance_class" {

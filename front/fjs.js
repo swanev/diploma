@@ -20,7 +20,7 @@ fetch(url)
 
 
 function getHello() {
-    const url = 'http://back.svc:5000'
+    const url = 'http://back-service:5000'
     fetch(url)
     .then(response => response.json())
 //    const response = fetch(url)

@@ -81,7 +81,7 @@ resource "aws_codebuild_project" "back-docker-build" {
 
     environment_variable {
         name = "DB_HOST" 
-        value = "terraform-20210711054305336100000001.ckqo2j2fzlrz.us-east-2.rds.amazonaws.com"
+        value = "mysql-service"
      }
 
     environment_variable {
@@ -158,7 +158,12 @@ resource "aws_codebuild_project" "back-deploy" {
     environment_variable {
         name = "EKS_CLUSTER_NAME" 
         value = var.cluster-name
-     }     
+     }
+
+    environment_variable {
+        name = "DB_HOST" 
+        value = "terraform-20210711054305336100000001.ckqo2j2fzlrz.us-east-2.rds.amazonaws.com"
+     }          
 
     environment_variable {
         name = "KUBECTL_URL" 

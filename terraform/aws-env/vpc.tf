@@ -1,6 +1,6 @@
-resource "aws_vpc" "default" {
-  cidr_block = var.vpc_cidr_block
-}
+#resource "aws_vpc" "default" {
+#  cidr_block = var.vpc_cidr_block
+#}
 
 #
 # VPC Resources

@@ -5,6 +5,23 @@ metadata:
   labels: 
     name: diploma
 
+---
+# mysql-service.yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mysql-service
+  name: mysql-service
+  namespace: diploma  
+spec:
+  externalName: DB_HOST
+  selector:
+    app: mysql-service
+  type: ExternalName
+status:
+  loadBalancer: {}    
+
 ---    
 apiVersion: apps/v1
 kind: Deployment
@@ -52,7 +69,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: back
+  name: back-service
   namespace: diploma
 spec:
   type: LoadBalancer

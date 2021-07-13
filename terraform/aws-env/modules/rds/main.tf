@@ -1,17 +1,9 @@
-terraform {
-  required_version = ">= 0.12"
-}
-
-provider "aws" {
-  region = var.aws_region
-}
-
 resource "aws_db_instance" "default" {
   depends_on             = [aws_security_group.default]
   identifier             = var.identifier
   allocated_storage      = var.storage
   engine                 = var.engine
-  engine_version         = var.engine_version[var.engine]
+  engine_version         = var.engine_version
   instance_class         = var.instance_class
   name                   = var.db_name
   username               = var.username
