@@ -162,7 +162,7 @@ resource "aws_codebuild_project" "back-deploy" {
 
     environment_variable {
         name = "DB_HOST" 
-        value = "terraform-20210711054305336100000001.ckqo2j2fzlrz.us-east-2.rds.amazonaws.com"
+        value = module.diploma_rds_mysql.db_instance_endpoint
      }          
 
     environment_variable {
