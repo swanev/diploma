@@ -219,7 +219,7 @@ resource "aws_codebuild_project" "front-deploy" {
 
     environment_variable {
         name = "IMAGE_TAG" 
-        value = "back"
+        value = "front"
      }
     environment_variable {
         name = "EKS_KUBECTL_ROLE_ARN" 
