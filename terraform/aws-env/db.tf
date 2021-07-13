@@ -9,6 +9,8 @@ module "diploma_rds_mysql" {
   password             = "temp12345"
 #  parameter_group_name = "default.mysql8.0"
   vpc_id               = aws_vpc.diploma.id
+  subnet_1_cidr        = "10.10.1.0/24"
+  subnet_2_cidr        = "10.10.2.0/24"
 }
 
 
