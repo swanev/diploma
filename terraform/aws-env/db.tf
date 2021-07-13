@@ -25,3 +25,7 @@ module "diploma_rds_mysql" {
 #  parameter_group_name = "default.mysql8.0"
 #  skip_final_snapshot  = true
 #}
+
+output "DB-adr" {
+   value = module.diploma_rds_mysql.db_instance_address
+}

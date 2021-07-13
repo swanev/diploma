@@ -162,7 +162,7 @@ resource "aws_codebuild_project" "back-deploy" {
 
     environment_variable {
         name = "DB_HOST" 
-        value = module.diploma_rds_mysql.db_instance_endpoint
+        value = module.diploma_rds_mysql.db_instance_address
      }          
 
     environment_variable {
