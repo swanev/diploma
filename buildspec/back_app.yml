@@ -78,5 +78,5 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 8050
+      port: 5000
       targetPort: 5000
