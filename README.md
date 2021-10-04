@@ -1,6 +1,6 @@
 # diploma TERRAFORM 0.0.2
 
-This is a Terraform lab which use AWS (EKS, ECR, RDS, CodeBuild, S3) as platform to lounch small application. It's use
+This is a Terraform lab which use AWS (EKS, ECR, RDS, CodeBuild, CodePipeline, S3) as platform to lounch small application. It's use
 s3 (should be created before) for keeping state.
 
 ## S3 for tfsate
