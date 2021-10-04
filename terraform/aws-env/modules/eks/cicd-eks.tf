@@ -37,7 +37,7 @@ resource "aws_iam_role_policy_attachment" "diploma-cluster-AmazonEKSVPCResourceC
 resource "aws_security_group" "diploma-cluster" {
   name        = "terraform-eks-diploma-cluster"
   description = "Cluster communication with worker nodes"
-  vpc_id      = aws_vpc.diploma.id
+  vpc_id      = var.vpc_id
 
   egress {
     from_port   = 0
@@ -150,4 +150,4 @@ data "aws_availability_zones" "available" {}
 # icanhazip.com to determine local workstation external IP
 # to open EC2 Security Group access to the Kubernetes cluster.
 # See workstation-external-ip.tf for additional information.
-provider "http" {}
+#provider "http" {}
