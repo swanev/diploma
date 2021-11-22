@@ -81,7 +81,7 @@ resource "aws_codebuild_project" "back-docker-build" {
 
     environment_variable {
         name = "DB_HOST" 
-        value = "mysql-service"
+        value = var.db_instance
      }
 
     environment_variable {
